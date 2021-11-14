@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres
+    container_name: myos-postgres
+    environment:
+      POSTGRES_DB: myos
+      POSTGRES_PASSWORD: DbBs31SVyx
+    volumes:
+      - ./data-postgres:/var/lib/postgresql/data
+    expose:
+      - 5432
+    healthcheck:
+      test: /usr/bin/pg_isready -U postgres
+      interval: 2s
+      timeout: 20s
+      retries: 120
+
+  api:
+    container_name: myos-api
+    build: .
+    restart: on-failure
+    command: npm start
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      DATABASE_URL: postgres://postgres:DbBs31SVyx@postgres:5432/myos
+    volumes:
+      - ./:/usr/src/
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy

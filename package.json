@@ -1,0 +1,33 @@
+{
+  "name": "tech.myos",
+  "version": "1.0.0",
+  "description": "Online shop for Myos",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -w src --ext ts --exec ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/desaroger/myos-online-shop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/desaroger/myos-online-shop/issues"
+  },
+  "homepage": "https://github.com/desaroger/myos-online-shop#readme",
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "apollo-server": "^3.5.0",
+    "pg": "^8.7.1",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.2.40"
+  }
+}
