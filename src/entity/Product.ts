@@ -6,7 +6,7 @@ import {Field, ID, ObjectType} from "type-graphql";
 export class Product extends BaseEntity {
     @Field(() => ID)
     @PrimaryGeneratedColumn()
-    id: number;
+    id: string;
 
     @Field(() => String)
     @Column()
@@ -15,4 +15,12 @@ export class Product extends BaseEntity {
     @Field(() => String)
     @Column()
     description: string;
+
+    @Field(() => String)
+    @Column()
+    picture: string;
+
+    @Field(() => Number)
+    @Column()
+    price: number;
 }

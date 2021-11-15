@@ -7,4 +7,10 @@ export class CreateProductInput {
 
     @Field()
     description: string;
+
+    @Field()
+    picture: string;
+
+    @Field()
+    price: number;
 }
