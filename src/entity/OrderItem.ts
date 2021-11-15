@@ -1,4 +1,4 @@
-import {Column, PrimaryGeneratedColumn, Entity, BaseEntity, ManyToOne, JoinTable} from "typeorm";
+import {Column, PrimaryGeneratedColumn, Entity, BaseEntity, ManyToOne} from "typeorm";
 import {Field, ID, ObjectType} from "type-graphql";
 import {Order} from "./Order";
 import {Product} from "./Product";
@@ -10,17 +10,21 @@ export class OrderItem extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: string;
 
+    @Column()
+    productId: string;
+
+    @Column()
+    orderId: string;
+
     @Field(() => Number)
     @Column({default: 1})
     quantity: number;
 
     @Field(() => Product)
     @ManyToOne(() => Product)
-    @JoinTable()
     product: Promise<Product>;
 
     @Field(() => Order)
     @ManyToOne(() => Order, order => order.items)
-    @JoinTable()
     order: Promise<Order>;
 }

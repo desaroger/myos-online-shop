@@ -1,7 +1,7 @@
 import { InputType, Field } from "type-graphql";
 
 @InputType()
-export class AddItemToOrderInput {
+export class SetOrderItemInput {
     @Field()
     orderId: string;
 

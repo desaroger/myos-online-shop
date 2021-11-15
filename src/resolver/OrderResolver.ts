@@ -1,11 +1,10 @@
 import {Resolver, Query, Arg, Mutation} from "type-graphql";
 import {Order} from "../entity/Order";
-import {OrderItem} from "../entity/OrderItem";
-import { AddItemToOrderInput } from "./inputs/AddItemToOrderInput";
+import {SetOrderItemInput} from "./inputs/SetOrderItemInput";
 
 @Resolver(() => Order)
 export class OrderResolver {
-    @Query(() => Order)
+    @Query(() => Order, { nullable: true })
     order(@Arg("id") id: string) {
         return Order.findOne({ where: { id } });
     }
@@ -18,26 +17,26 @@ export class OrderResolver {
     }
 
     @Mutation(() => Order)
-    async AddItemToOrder(@Arg("data") data: AddItemToOrderInput) {
-        // LOCKS?
-        let orderItem: OrderItem = await OrderItem.findOne({
-            where: {
-                order: {id: data.orderId},
-                product: {id: data.productId},
-            }
-        })
-
-        if (orderItem) {
-            orderItem.quantity++
-        } else {
-            orderItem = OrderItem.create({
-                order: Promise.resolve({id: data.orderId}),
-                product: Promise.resolve({id: data.productId})
-            })
+    async setOrderItem(@Arg("data") data: SetOrderItemInput) {
+        const order = await Order.findOne({ where: { id: data.orderId } });
+        if (!order) {
+            throw new Error(`Order with id "${data.orderId}" not found.`)
         }
 
-        await orderItem.save()
+        await order.setItem(data.productId, data.quantity)
 
-        return orderItem;
+        return order;
+    }
+
+    @Mutation(() => Order)
+    async confirm(@Arg("id") id: string) {
+        const order = await Order.findOne({ where: { id } });
+        if (!order) {
+            throw new Error(`Order with id "${id}" not found.`)
+        }
+
+        await order.confirm()
+
+        return order
     }
 }
