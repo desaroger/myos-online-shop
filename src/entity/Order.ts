@@ -8,33 +8,33 @@ import {
 import {Field, ID, ObjectType} from "type-graphql";
 import {OrderItem} from "./OrderItem";
 
-export enum OrderStatus {
+export const OrderStatus = {
 
     /**
      * The order is still a shopping cart, where products can be added/removed and price can change.
      */
-    CART = "cart",
+    CART: "cart",
 
     /**
      * The order has been confirmed, price is fixed and we are waiting the user to finish the transaction, fill
      * all the information and to pay.
      */
-    CONFIRMED = "confirmed",
+    CONFIRMED: "confirmed",
 
     /**
      * We have received the payment, the shipment process has been started.
      */
-    PAID = "paid",
+    PAID: "paid",
 
     /**
      * The products are now in the shipping company ready to be sent.
      */
-    DISPATCHED = "dispatched",
+    DISPATCHED: "dispatched",
 
     /**
      * The shipping company confirmed the products have arrived to the destination.
      */
-    COMPLETED = "completed"
+    COMPLETED: "completed"
 }
 
 @Entity()
@@ -49,8 +49,8 @@ export class Order extends BaseEntity {
     items: Promise<OrderItem[]>;
 
     @Field(() => String)
-    @Column({type: "enum", enum: OrderStatus, default: OrderStatus.CART})
-    status: OrderStatus;
+    @Column()
+    status: string;
 
     /**
      * This column is used to store the final price calculated on the moment

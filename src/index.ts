@@ -1,15 +1,11 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server";
-import {buildSchema} from "type-graphql";
-import {ProductResolver} from "./resolver/ProductResolver";
-import {OrderResolver} from "./resolver/OrderResolver";
+import { buildSchema } from "./schema";
 
 async function main() {
     await createConnection()
-    const schema = await buildSchema({
-        resolvers: [ProductResolver, OrderResolver]
-    })
+    const schema = await buildSchema()
     const server = new ApolloServer({ schema })
     const port = process.env.PORT || 3000
     await server.listen(port)
