@@ -6,11 +6,11 @@ Basic example of an online shop backend.
 - typeorm and type-graphql
 - jest tests and eslint
 - postgres as db, eslint in memory for tests
-- with docker and a simple github CI
+- with docker and a minimalist github CI
 
 ## Getting started
 
-### Run services
+### Run with docker
 
 ```sh
 $ docker-compose up -d
@@ -24,11 +24,15 @@ Then go to http://localhost:3000.
 $ npm run test
 ```
 
+(You will need to install dependencies with `npm ci` before running it)
+
 ### Lint
 
 ```sh
 $ npm run lint
 ```
+
+(You will need to install dependencies with `npm ci` before running it)
 
 ## Thoughts
 

@@ -25,11 +25,11 @@ services:
     restart: on-failure
     command: npm start
     environment:
-      HOST: 0.0.0.0
       PORT: 3000
       DATABASE_URL: postgres://postgres:DbBs31SVyx@postgres:5432/myos
     volumes:
-      - ./:/usr/src/
+      - ./:/usr/src/app
+#      - /usr/src/app/node_modules
     ports:
       - "3000:3000"
     depends_on:

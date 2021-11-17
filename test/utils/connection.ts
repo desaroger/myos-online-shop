@@ -12,8 +12,6 @@ export async function create() {
         dropSchema: true,
         entities: ormConfig.entities,
         migrations: ormConfig.migrations,
-        subscribers: ormConfig.subscribers,
-        cli: ormConfig.cli,
         synchronize: true,
         logging: false
     }
