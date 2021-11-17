@@ -21,19 +21,16 @@ describe('Orders resolver', () => {
         order = await Order.create({
             status: OrderStatus.CART
         }).save()
-        order.items = Promise.resolve([
-            await OrderItem.create({
-                productId: productPencil.id,
-                orderId: order.id,
-                quantity: 3
-            }).save(),
-            await OrderItem.create({
-                productId: productLamp.id,
-                orderId: order.id,
-                quantity: 1
-            }).save()
-        ])
-        await order.save()
+        await OrderItem.create({
+            productId: productPencil.id,
+            orderId: order.id,
+            quantity: 3
+        }).save()
+        await OrderItem.create({
+            productId: productLamp.id,
+            orderId: order.id,
+            quantity: 1
+        }).save()
     });
 
     it('gets order by id', async () => {

@@ -54,7 +54,7 @@ export class Order extends BaseEntity {
 
     /**
      * This column is used to store the final price calculated on the moment
-     * the order was confirmed.
+     * the order is confirmed.
      */
     @Column({ nullable: true })
     finalPrice!: number;
@@ -84,6 +84,7 @@ export class Order extends BaseEntity {
 
     /**
      * Sets the quantity for a given product.
+     * TODO This should use locks
      *
      * @param {string} productId
      * @param {number} [quantity=1]
