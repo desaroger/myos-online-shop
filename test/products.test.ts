@@ -66,6 +66,50 @@ describe('Products resolver', () => {
         })
     })
 
+    it('search products by title', async () => {
+        await Product.create(data.productPencil()).save()
+        await Product.create(data.productLamp()).save()
+
+        const response = await query.run(`
+            query ProductSearch($term: String!) {
+              productSearch(term: $term) {
+                title
+              }
+            }
+        `, {
+            term: 'ENciL'
+        })
+        expect(response).toEqual({
+            data: {
+                productSearch: [
+                    { title: 'Pencil 2H' }
+                ]
+            }
+        })
+    })
+
+    it('search products by description', async () => {
+        await Product.create(data.productPencil()).save()
+        await Product.create(data.productLamp()).save()
+
+        const response = await query.run(`
+            query ProductSearch($term: String!) {
+              productSearch(term: $term) {
+                title
+              }
+            }
+        `, {
+            term: 'wArMtH'
+        })
+        expect(response).toEqual({
+            data: {
+                productSearch: [
+                    { title: 'Table lamp 8w' }
+                ]
+            }
+        })
+    })
+
     it('create products', async () => {
         expect(await Product.count()).toEqual(0)
         const response = await query.run(`

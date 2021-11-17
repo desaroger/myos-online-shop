@@ -14,6 +14,11 @@ export class ProductResolver {
         return Product.findOne({ where: { id } });
     }
 
+    @Query(() => [Product])
+    productSearch(@Arg('term') term: string) {
+        return Product.search(term);
+    }
+
     @Mutation(() => Product)
     async createProduct(@Arg('data') data: CreateProductInput) {
         const product = Product.create(data);
