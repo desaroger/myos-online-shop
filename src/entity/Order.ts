@@ -4,37 +4,37 @@ import {
     BaseEntity,
     OneToMany,
     Column
-} from "typeorm";
-import {Field, ID, ObjectType} from "type-graphql";
-import {OrderItem} from "./OrderItem";
+} from 'typeorm';
+import { Field, ID, ObjectType } from 'type-graphql';
+import { OrderItem } from './OrderItem';
 
 export const OrderStatus = {
 
     /**
      * The order is still a shopping cart, where products can be added/removed and price can change.
      */
-    CART: "cart",
+    CART: 'cart',
 
     /**
      * The order has been confirmed, price is fixed and we are waiting the user to finish the transaction, fill
      * all the information and to pay.
      */
-    CONFIRMED: "confirmed",
+    CONFIRMED: 'confirmed',
 
     /**
      * We have received the payment, the shipment process has been started.
      */
-    PAID: "paid",
+    PAID: 'paid',
 
     /**
      * The products are now in the shipping company ready to be sent.
      */
-    DISPATCHED: "dispatched",
+    DISPATCHED: 'dispatched',
 
     /**
      * The shipping company confirmed the products have arrived to the destination.
      */
-    COMPLETED: "completed"
+    COMPLETED: 'completed'
 }
 
 @Entity()
@@ -56,8 +56,8 @@ export class Order extends BaseEntity {
      * This column is used to store the final price calculated on the moment
      * the order was confirmed.
      */
-    @Column({nullable: true})
-    finalPrice!: Number;
+    @Column({ nullable: true })
+    finalPrice!: number;
 
     /**
      * Gets the order price.
@@ -66,7 +66,7 @@ export class Order extends BaseEntity {
      * price calculated on the moment when the order was confirmed.
      */
     @Field(() => Number)
-    get price(): Promise<Number> {
+    get price(): Promise<number> {
         return (async () => {
             if (this.status != OrderStatus.CART) {
                 return this.finalPrice
@@ -88,7 +88,7 @@ export class Order extends BaseEntity {
      * @param {string} productId
      * @param {number} [quantity=1]
      */
-    async setItem(productId: string, quantity: number = 1) {
+    async setItem(productId: string, quantity = 1) {
         if (this.status !== OrderStatus.CART) {
             throw new Error(`You can not modify the order once it is confirmed. Current status "${this.status}".`)
         }

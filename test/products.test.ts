@@ -1,14 +1,14 @@
 import * as connection from './utils/connection'
-import * as query from "./utils/query";
-import * as data from "./utils/data";
-import {Product} from "../src/entity/Product";
+import * as query from './utils/query';
+import * as data from './utils/data';
+import { Product } from '../src/entity/Product';
 
-describe("Products resolver", () => {
+describe('Products resolver', () => {
     beforeAll(connection.create);
     afterAll(connection.close);
     beforeEach(connection.clear);
 
-    it("gets all products", async () => {
+    it('gets all products', async () => {
         await Product.insert(data.productPencil())
         await Product.insert(data.productLamp())
 
@@ -27,11 +27,11 @@ describe("Products resolver", () => {
             data: {
                 products: [
                     {
-                        id: "1",
+                        id: '1',
                         ...data.productPencil()
                     },
                     {
-                        id: "2",
+                        id: '2',
                         ...data.productLamp()
                     }
                 ]
@@ -39,7 +39,7 @@ describe("Products resolver", () => {
         })
     })
 
-    it("gets product by id", async () => {
+    it('gets product by id', async () => {
         await Product.create(data.productPencil()).save()
         await Product.create(data.productLamp()).save()
 
@@ -59,14 +59,14 @@ describe("Products resolver", () => {
         expect(response).toEqual({
             data: {
                 product: {
-                    id: "2",
+                    id: '2',
                     ...data.productLamp()
                 }
             }
         })
     })
 
-    it("create products", async () => {
+    it('create products', async () => {
         expect(await Product.count()).toEqual(0)
         const response = await query.run(`
             mutation CreateProduct($data: CreateProductInput!) {
@@ -80,7 +80,7 @@ describe("Products resolver", () => {
         expect(response).toMatchObject({
             data: {
                 createProduct: {
-                    id: "1"
+                    id: '1'
                 }
             }
         })

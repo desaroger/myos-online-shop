@@ -1,6 +1,6 @@
-import {Resolver, Query, Arg, Mutation} from "type-graphql";
-import {Product} from "../entity/Product";
-import { CreateProductInput } from "./inputs/CreateProductInput";
+import { Resolver, Query, Arg, Mutation } from 'type-graphql';
+import { Product } from '../entity/Product';
+import { CreateProductInput } from './inputs/CreateProductInput';
 
 @Resolver()
 export class ProductResolver {
@@ -10,12 +10,12 @@ export class ProductResolver {
     }
 
     @Query(() => Product)
-    product(@Arg("id") id: string) {
+    product(@Arg('id') id: string) {
         return Product.findOne({ where: { id } });
     }
 
     @Mutation(() => Product)
-    async createProduct(@Arg("data") data: CreateProductInput) {
+    async createProduct(@Arg('data') data: CreateProductInput) {
         const product = Product.create(data);
         await product.save();
         return product;

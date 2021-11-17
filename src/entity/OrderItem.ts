@@ -1,7 +1,7 @@
-import {Column, PrimaryGeneratedColumn, Entity, BaseEntity, ManyToOne} from "typeorm";
-import {Field, ID, ObjectType} from "type-graphql";
-import {Order} from "./Order";
-import {Product} from "./Product";
+import { Column, PrimaryGeneratedColumn, Entity, BaseEntity, ManyToOne } from 'typeorm';
+import { Field, ID, ObjectType } from 'type-graphql';
+import { Order } from './Order';
+import { Product } from './Product';
 
 @Entity()
 @ObjectType()
@@ -17,7 +17,7 @@ export class OrderItem extends BaseEntity {
     orderId: string;
 
     @Field(() => Number)
-    @Column({default: 1})
+    @Column({ default: 1 })
     quantity: number;
 
     @Field(() => Product)

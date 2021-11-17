@@ -1,17 +1,16 @@
-import {createConnection, getConnection} from 'typeorm';
-import {ConnectionOptions} from "typeorm/connection/ConnectionOptions";
-
-const originalConnectionData = require('../../ormconfig.json');
+import { createConnection, getConnection } from 'typeorm';
+import { ConnectionOptions } from 'typeorm/connection/ConnectionOptions';
+import ormConfig from '../../ormconfig';
 
 export async function create() {
     const config: ConnectionOptions = {
-        type: "sqlite",
-        database: ":memory:",
+        type: 'sqlite',
+        database: ':memory:',
         dropSchema: true,
-        entities: originalConnectionData.entities,
-        migrations: originalConnectionData.migrations,
-        subscribers: originalConnectionData.subscribers,
-        cli: originalConnectionData.cli,
+        entities: ormConfig.entities,
+        migrations: ormConfig.migrations,
+        subscribers: ormConfig.subscribers,
+        cli: ormConfig.cli,
         synchronize: true,
         logging: false
     }

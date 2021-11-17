@@ -1,12 +1,12 @@
 import * as connection from './utils/connection'
-import * as query from "./utils/query";
-import * as data from "./utils/data";
-import {Order, OrderStatus} from "../src/entity/Order";
-import {OrderItem} from "../src/entity/OrderItem";
-import {Product} from "../src/entity/Product";
-import {SetOrderItemInput} from "../src/resolver/inputs/SetOrderItemInput";
+import * as query from './utils/query';
+import * as data from './utils/data';
+import { Order, OrderStatus } from '../src/entity/Order';
+import { OrderItem } from '../src/entity/OrderItem';
+import { Product } from '../src/entity/Product';
+import { SetOrderItemInput } from '../src/resolver/inputs/SetOrderItemInput';
 
-describe("Orders resolver", () => {
+describe('Orders resolver', () => {
     let productPencil;
     let productLamp;
     let order;
@@ -37,7 +37,7 @@ describe("Orders resolver", () => {
         await order.save()
     });
 
-    it("gets order by id", async () => {
+    it('gets order by id', async () => {
         const response = await query.run(`
             query Order($id: String!) {
               order(id: $id) {
@@ -83,7 +83,7 @@ describe("Orders resolver", () => {
         })
     })
 
-    it("modifies cart", async () => {
+    it('modifies cart', async () => {
         const response = await query.run(`
             mutation SetOrderItem($data: SetOrderItemInput!) {
               setOrderItem(data: $data) {
@@ -110,7 +110,7 @@ describe("Orders resolver", () => {
         })
     })
 
-    it("confirms cart", async () => {
+    it('confirms cart', async () => {
         const response = await query.run(`
             mutation Confirm($id: String!) {
               confirm(id: $id) {
@@ -133,7 +133,7 @@ describe("Orders resolver", () => {
         })
     })
 
-    it("fixes the price on confirm", async () => {
+    it('fixes the price on confirm', async () => {
         order.finalPrice = 99
         await order.save()
 

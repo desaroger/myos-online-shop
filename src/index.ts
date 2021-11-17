@@ -1,7 +1,7 @@
-import "reflect-metadata";
-import { createConnection } from "typeorm";
-import { ApolloServer } from "apollo-server";
-import { buildSchema } from "./schema";
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
+import { ApolloServer } from 'apollo-server';
+import { buildSchema } from './schema';
 
 async function main() {
     await createConnection()

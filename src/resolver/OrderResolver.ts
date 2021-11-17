@@ -1,11 +1,11 @@
-import {Resolver, Query, Arg, Mutation} from "type-graphql";
-import {Order} from "../entity/Order";
-import {SetOrderItemInput} from "./inputs/SetOrderItemInput";
+import { Resolver, Query, Arg, Mutation } from 'type-graphql';
+import { Order } from '../entity/Order';
+import { SetOrderItemInput } from './inputs/SetOrderItemInput';
 
 @Resolver(() => Order)
 export class OrderResolver {
     @Query(() => Order, { nullable: true })
-    order(@Arg("id") id: string) {
+    order(@Arg('id') id: string) {
         return Order.findOne({ where: { id } });
     }
 
@@ -17,7 +17,7 @@ export class OrderResolver {
     }
 
     @Mutation(() => Order)
-    async setOrderItem(@Arg("data") data: SetOrderItemInput) {
+    async setOrderItem(@Arg('data') data: SetOrderItemInput) {
         const order = await Order.findOne({ where: { id: data.orderId } });
         if (!order) {
             throw new Error(`Order with id "${data.orderId}" not found.`)
@@ -29,7 +29,7 @@ export class OrderResolver {
     }
 
     @Mutation(() => Order)
-    async confirm(@Arg("id") id: string) {
+    async confirm(@Arg('id') id: string) {
         const order = await Order.findOne({ where: { id } });
         if (!order) {
             throw new Error(`Order with id "${id}" not found.`)
