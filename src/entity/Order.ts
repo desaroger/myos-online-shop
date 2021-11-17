@@ -3,10 +3,11 @@ import {
     Entity,
     BaseEntity,
     OneToMany,
-    Column
+    Column, In
 } from 'typeorm';
 import { Field, ID, ObjectType } from 'type-graphql';
 import { OrderItem } from './OrderItem';
+import { Product } from './Product';
 
 export const OrderStatus = {
 
@@ -49,7 +50,7 @@ export class Order extends BaseEntity {
     items: Promise<OrderItem[]>;
 
     @Field(() => String)
-    @Column()
+    @Column({ default: OrderStatus.CART })
     status: string;
 
     /**
@@ -73,10 +74,17 @@ export class Order extends BaseEntity {
             }
 
             const items = await this.items
+            const productIds = items.map(item => item.productId)
+            const products = await Product.find({ where: { id: In(productIds) }, select: ['id', 'price'] })
+            const productsPrices = products.reduce((result, product) => {
+                result[product.id] = product.price
+                return result
+            }, {})
+
             let price = 0
             for (const item of items) {
-                const product = await item.product
-                price += item.quantity * product.price
+                const productPrice = productsPrices[item.productId]
+                price += item.quantity * productPrice
             }
             return price
         })()

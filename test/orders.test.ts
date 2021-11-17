@@ -79,6 +79,23 @@ describe('Orders resolver', () => {
         })
     })
 
+    it('creates cart', async () => {
+        const response = await query.run(`
+            mutation CreateOrder {
+              createOrder {
+                id
+              }
+            }
+        `)
+        expect(response).toEqual({
+            data: {
+                createOrder: {
+                    id: '2'
+                }
+            }
+        })
+    })
+
     it('modifies cart', async () => {
         const response = await query.run(`
             mutation SetOrderItem($data: SetOrderItemInput!) {

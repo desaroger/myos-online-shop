@@ -55,7 +55,6 @@ similar.
 currency in use (cents, penny, etc).
 - There should be, along with every price, a currency identifier (probably ISO 4217).
 - Prices are calculated "live" on the carts (so if for example a product changes the price, the cart also changes), but once you confirm the cart the price gets fixed.
-- Prices are calculated synchronous, iterating items and fetching products one by one. This can be improved a lot, querying all the related products prices in one query.
 
 ### OrderItem shouldn't have ID
 

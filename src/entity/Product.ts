@@ -25,14 +25,21 @@ export class Product extends BaseEntity {
     price: number;
 
     /**
+     * Gets the typeorm repo for Products
+     */
+    static get repo() {
+        return getConnection().manager.getRepository(Product)
+    }
+
+    /**
      * Search products by title or description, case-insensitive.
      *
      * @param {string} term
      */
     static async search(term: string) {
         term = term.toLowerCase()
-        const repo = getConnection().manager.getRepository(Product)
-        return await repo
+
+        return await Product.repo
             .createQueryBuilder()
             .select()
             .where('lower(title) LIKE :term', { term: `%${term}%` })
