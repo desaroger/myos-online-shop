@@ -2,6 +2,9 @@ import { createConnection, getConnection } from 'typeorm';
 import { ConnectionOptions } from 'typeorm/connection/ConnectionOptions';
 import ormConfig from '../../ormconfig';
 
+/**
+ * Creates a new DB connection against a sqlite memory DB.
+ */
 export async function create() {
     const config: ConnectionOptions = {
         type: 'sqlite',
@@ -18,18 +21,18 @@ export async function create() {
     await createConnection(config);
 }
 
+/**
+ * Closes the DB connection.
+ */
 export async function close() {
     await getConnection().close();
 }
 
+/**
+ * Clears all the database.
+ * TODO find a way to do it truncating the tables instead of regenerating the entire DB
+ */
 export async function clear(){
-    const connection = getConnection();
-    const entities = connection.entityMetadatas;
-
-    const promises = entities.map(async (entity) => {
-        const repository = connection.getRepository(entity.name);
-        await repository.query(`delete from "${entity.tableName}"`)
-        await repository.query(`delete from sqlite_sequence where name="${entity.tableName}"`)
-    });
-    await Promise.all(promises)
+    await close()
+    await create()
 }

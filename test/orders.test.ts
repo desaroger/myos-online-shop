@@ -14,8 +14,7 @@ describe('Orders resolver', () => {
     beforeAll(connection.create);
     afterAll(connection.close);
     beforeEach(async () => {
-        await connection.close()
-        await connection.create()
+        await connection.clear()
         productPencil = await Product.create(data.productPencil()).save()
         productLamp = await Product.create(data.productLamp()).save()
 

@@ -1,5 +1,6 @@
+import { ConnectionOptions } from 'typeorm';
 
-module.exports = {
+export default <ConnectionOptions> {
   name: 'default',
   type: 'postgres',
   url: process.env.DATABASE_URL,
